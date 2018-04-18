@@ -5,7 +5,11 @@ import { hot } from 'react-hot-loader';
 class App extends Component {
     render() {
         return(
-            <h1>Did this work, World?</h1>
+            <div>
+                <h1>Hello, World!</h1>
+                <p>This is the first paragraph</p>
+                <p>This is the second paragraph</p>
+            </div>
         );
     }
 }
