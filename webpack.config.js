@@ -30,6 +30,10 @@ module.exports = {
             {
                 from: 'node_modules/materialize-css/dist/js/materialize.min.js',
                 to: 'js/'
+            },
+            {
+                from: 'node_modules/jquery/dist/jquery.min.js',
+                to: 'js/'
             }
         ]),
         new HtmlWebpackPlugin({
@@ -49,6 +53,7 @@ module.exports = {
             ],
             mobile: true,
             scripts: [
+                'js/jquery.min.js',
                 'js/materialize.min.js'
             ],
             links: [
