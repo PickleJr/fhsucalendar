@@ -2,20 +2,40 @@ import React, { Component } from 'react';
 import { hot } from 'react-hot-loader';
 
 import Day from './day';
+import Loading from '../loading';
 
 class Month extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            date: new Date() 
+            date: new Date(),
+            ready: false,
+            entries: []
         }
+    }
+
+    componentDidMount() {
+        this.readFeeds(this.props.calendars).then(results => {
+        }).catch(error => {
+            console.error("There was an error!");
+            console.log(error);
+        });
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({ready: false, entries: []});
+        this.readFeeds(this.props.calendars).then(results => {
+        }).catch(error => {
+            console.error("There was an error!");
+            console.log(error);
+        });
     }
 
     async readFeeds(calendars) {
         let returns = {};
         for(let i = 0; i < calendars.length; i++) {
             if(calendars[i].display) {
-                $.ajax({
+                await $.ajax({
                     url: calendars[i].url,
                     success: function(data) {
                         $(data).find("item").each(function() {
@@ -37,7 +57,10 @@ class Month extends Component {
                 });
             }
         }
-        return returns;
+        this.setState({
+            ready: true,
+            entries: returns
+        });
     }
     
     buildCalendar(theDate) {
@@ -48,20 +71,21 @@ class Month extends Component {
         let weeklyResults = [];
         let results = [];
         let keyID = 0;
-        this.readFeeds(this.props.calendars).then(results => {
-            console.log(results);
-        });
 
         let thisDate = this.state.date;
+        let theEvents = this.state.entries;
+        theEvents[thisDate.getFullYear()] = theEvents[thisDate.getFullYear()] || {};
+        theEvents[thisDate.getFullYear()][thisDate.getMonth()] = theEvents[thisDate.getFullYear()][thisDate.getMonth()] || {};
+        theEvents[thisDate.getFullYear()][thisDate.getMonth()]
 
         while(dayCouter <= lastDayOfMonth) {
-        //let events = theEvents[thisDate.getFullYear()][thisDate.getMonth()][dayCouter] || [];
+            let events = theEvents[thisDate.getFullYear()][thisDate.getMonth()][dayCouter] || [];
 
             if(dayCouter == 1) {
 
                 if(weekDayCounter == firstWeekDayOfMonth) {
                     weeklyResults.push(
-                        <Day events={[]} key={++keyID}>{dayCouter++}</Day>
+                        <Day events={events} key={++keyID}>{dayCouter++}</Day>
                     );
                 } else {
                     weeklyResults.push(<Day key={++keyID}></Day>);
@@ -69,7 +93,7 @@ class Month extends Component {
 
             } else {
 
-                weeklyResults.push(<Day events={[]} key={++keyID}>{dayCouter++}</Day>);
+                weeklyResults.push(<Day events={events} key={++keyID}>{dayCouter++}</Day>);
                 
                 if(dayCouter - 1 == lastDayOfMonth) {
                     while(weekDayCounter != 6) {
@@ -89,22 +113,26 @@ class Month extends Component {
     }
 
     render() {
-        return(
-            <div id="calendar">
-                <div className="cal-row">
-                    <div><span>SUN</span></div>
-                    <div><span>MON</span></div>
-                    <div><span>TUE</span></div>
-                    <div><span>WED</span></div>
-                    <div><span>THU</span></div>
-                    <div><span>FRI</span></div>
-                    <div><span>SAT</span></div>
+        if(this.state.ready){
+            return(
+                <div id="calendar">
+                    <div className="cal-row">
+                        <div><span>SUN</span></div>
+                        <div><span>MON</span></div>
+                        <div><span>TUE</span></div>
+                        <div><span>WED</span></div>
+                        <div><span>THU</span></div>
+                        <div><span>FRI</span></div>
+                        <div><span>SAT</span></div>
+                    </div>
+                    {this.buildCalendar((this.props.match.params.year && this.props.match.params.month) ?
+                        new Date(parseInt(this.props.match.params.year), parseInt(this.props.match.params.month))
+                        : new Date())}
                 </div>
-                {this.buildCalendar((this.props.match.params.year && this.props.match.params.month) ?
-                    new Date(parseInt(this.props.match.params.year), parseInt(this.props.match.params.month))
-                    : new Date())}
-            </div>
-        );
+            );
+        } else {
+            return(<Loading />);
+        }
     }
 }
 
