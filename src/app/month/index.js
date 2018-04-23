@@ -7,8 +7,11 @@ import Loading from '../loading';
 class Month extends Component {
     constructor(props) {
         super(props);
+
+        let curMonth = props.match.params.month || (new Date()).getMonth();
+        let curYear = props.match.params.year || (new Date()).getFullYear();
         this.state = {
-            date: new Date(),
+            date: new Date(curYear, curMonth),
             ready: false,
             entries: []
         }
@@ -23,7 +26,13 @@ class Month extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ready: false, entries: []});
+        let curMonth = nextProps.match.params.month || (new Date()).getMonth();
+        let curYear = nextProps.match.params.year || (new Date()).getFullYear();
+        this.setState({
+            date: new Date(curYear, curMonth),
+            ready: false,
+            entries: []
+        });
         this.readFeeds(this.props.calendars).then(results => {
         }).catch(error => {
             console.error("There was an error!");
