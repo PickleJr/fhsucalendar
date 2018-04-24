@@ -12,7 +12,7 @@ class Day extends Component {
         if(indicator && this.props.date.month && this.props.date.year) {
             return(
                 <div>
-                    <Link to={"day/" + this.props.date.year + "/" + this.props.date.month + "/" + this.props.children}>
+                    <Link to={"/day/" + this.props.date.year + "/" + this.props.date.month + "/" + this.props.children}>
                         <span>
                             {this.props.children}
                         </span>
