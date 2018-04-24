@@ -50,7 +50,21 @@ class Nav extends Component {
         $('.dropdown-trigger').dropdown({
             coverTrigger: false
         });
+        $('.dropdown-year-trigger').dropdown({
+            coverTrigger: false
+        });
+        $('.dropdown-year-mobile').dropdown({
+            coverTrigger: false
+        });
+        $('.dropdown-trigger-mobile').dropdown({
+            coverTrigger: false
+        });
         $('.dropdown-calendar-trigger').dropdown({
+            coverTrigger: false,
+            constrainWidth: false,
+            closeOnClick: false
+        });
+        $('.dropdown-calendar-trigger-mobile').dropdown({
             coverTrigger: false,
             constrainWidth: false,
             closeOnClick: false
@@ -60,7 +74,10 @@ class Nav extends Component {
         let months = ["Janruary", "February", "March", "April", "May", "June", "July", "August",
             "September", "October", "November", "December"];
         let path = this.props.location.pathname;
+        let year = this.props.match.params.year || (new Date()).getFullYear();
+        let mobileYear = year.toString().substr(-2);
         let month = this.props.match.params.month || (new Date()).getMonth();
+        let monthNum = month;
         month = months[month];
 
         let displayAcademicCalendar = this.findDisplayCalendar("academic");
@@ -73,6 +90,56 @@ class Nav extends Component {
         let displayUnionCalendar = this.findDisplayCalendar("union");
         return(
             <div>
+                <ul className="dropdown-content" id="calendars-mobile">
+                    <li>
+                        <label className="navcheckbox">
+                            <input checked={displayAcademicCalendar} name="academic" type="checkbox" onChange={this.handleCalendarChange}/>
+                            <span>Academic Calendar</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label className="navcheckbox">
+                            <input checked={displayDigitalCalendar} name="digital" type="checkbox" onChange={this.handleCalendarChange}/>
+                            <span>Digital Signature</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label className="navcheckbox">
+                            <input checked={displayHomepageCalendar} name="homepage" type="checkbox" onChange={this.handleCalendarChange}/>
+                            <span>FHSU Homepage Feed</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label className="navcheckbox">
+                            <input checked={displayLibraryCalendar} name="library" type="checkbox" onChange={this.handleCalendarChange}/>
+                            <span>Library Feed</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label className="navcheckbox">
+                            <input checked={displayMusicCalendar} name="music" type="checkbox" onChange={this.handleCalendarChange}/>
+                            <span>Music Feed</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label className="navcheckbox">
+                            <input checked={displayEventsCalendar} name="events" type="checkbox" onChange={this.handleCalendarChange}/>
+                            <span>Student Events/Activities</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label className="navcheckbox">
+                            <input checked={displayTestsCalendar} name="tests" type="checkbox" onChange={this.handleCalendarChange}/>
+                            <span>Tests</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label className="navcheckbox">
+                            <input checked={displayUnionCalendar} name="union" type="checkbox" onChange={this.handleCalendarChange}/>
+                            <span>Union</span>
+                        </label>
+                    </li>
+                </ul>
                 <ul className="dropdown-content" id="calendars">
                     <li>
                         <label className="navcheckbox">
@@ -123,19 +190,41 @@ class Nav extends Component {
                         </label>
                     </li>
                 </ul>
+                <ul className="dropdown-content" id="year">
+                    <li><Link to={"/month/" + (new Date()).getFullYear() + "/" + monthNum}>{(new Date()).getFullYear()}</Link></li>
+                    <li><Link to={"/month/" + ((new Date()).getFullYear() + 1) + "/" + monthNum}>{(new Date()).getFullYear() + 1}</Link></li>
+                </ul>
+                <ul className="dropdown-content" id="year-mobile">
+                    <li><Link to={"/month/" + (new Date()).getFullYear() + "/" + monthNum}>{(new Date()).getFullYear()}</Link></li>
+                    <li><Link to={"/month/" + ((new Date()).getFullYear() + 1) + "/" + monthNum}>{(new Date()).getFullYear() + 1}</Link></li>
+                </ul>
+                <ul className="dropdown-content" id="months-mobile">
+                    <li><Link to={"/month/" + year + "/0"}>Janruary</Link></li>
+                    <li><Link to={"/month/" + year + "/1"}>February</Link></li>
+                    <li><Link to={"/month/" + year + "/2"}>March</Link></li>
+                    <li><Link to={"/month/" + year + "/3"}>April</Link></li>
+                    <li><Link to={"/month/" + year + "/4"}>May</Link></li>
+                    <li><Link to={"/month/" + year + "/5"}>June</Link></li>
+                    <li><Link to={"/month/" + year + "/6"}>July</Link></li>
+                    <li><Link to={"/month/" + year + "/7"}>August</Link></li>
+                    <li><Link to={"/month/" + year + "/8"}>September</Link></li>
+                    <li><Link to={"/month/" + year + "/9"}>October</Link></li>
+                    <li><Link to={"/month/" + year + "/10"}>November</Link></li>
+                    <li><Link to={"/month/" + year + "/11"}>December</Link></li>
+                </ul>
                 <ul className="dropdown-content" id="months">
-                    <li><Link to="/month/2018/0">Janruary</Link></li>
-                    <li><Link to="/month/2018/1">February</Link></li>
-                    <li><Link to="/month/2018/2">March</Link></li>
-                    <li><Link to="/month/2018/3">April</Link></li>
-                    <li><Link to="/month/2018/4">May</Link></li>
-                    <li><Link to="/month/2018/5">June</Link></li>
-                    <li><Link to="/month/2018/6">July</Link></li>
-                    <li><Link to="/month/2018/7">August</Link></li>
-                    <li><Link to="/month/2018/8">September</Link></li>
-                    <li><Link to="/month/2018/9">October</Link></li>
-                    <li><Link to="/month/2018/10">November</Link></li>
-                    <li><Link to="/month/2018/11">December</Link></li>
+                    <li><Link to={"/month/" + year + "/0"}>Janruary</Link></li>
+                    <li><Link to={"/month/" + year + "/1"}>February</Link></li>
+                    <li><Link to={"/month/" + year + "/2"}>March</Link></li>
+                    <li><Link to={"/month/" + year + "/3"}>April</Link></li>
+                    <li><Link to={"/month/" + year + "/4"}>May</Link></li>
+                    <li><Link to={"/month/" + year + "/5"}>June</Link></li>
+                    <li><Link to={"/month/" + year + "/6"}>July</Link></li>
+                    <li><Link to={"/month/" + year + "/7"}>August</Link></li>
+                    <li><Link to={"/month/" + year + "/8"}>September</Link></li>
+                    <li><Link to={"/month/" + year + "/9"}>October</Link></li>
+                    <li><Link to={"/month/" + year + "/10"}>November</Link></li>
+                    <li><Link to={"/month/" + year + "/11"}>December</Link></li>
                 </ul>
                 <nav className="nav-wrapper yellow accent-3">
                     <div className="nav-wrapper container">
@@ -147,22 +236,39 @@ class Nav extends Component {
                             <li className={ path == "/day" ? 'active' : ''}>
                                 <Link to="/day">Day</Link>
                             </li>
-                            <li className={ path == "/week" ? 'active' : ''}>
-                                <Link to="/week">Week</Link>
-                            </li>
                             <li className={ (path == "/" || path == '/month') ? 'active' : ''}>
                                 <Link to="/">Month</Link>
                             </li>
                         </ul>
                         <ul className="right">
-                            <li>
+                            <li className="hide-on-med-and-down">
                                 <a className="dropdown-calendar-trigger" href="#" data-target="calendars">
                                     Calendars<i className="material-icons right">arrow_drop_down</i>
                                 </a>
                             </li>
-                            <li>
+                            <li className="hide-on-med-and-down">
                                 <a className="dropdown-trigger" href="#" data-target="months">
                                     {month}<i className="material-icons right">arrow_drop_down</i>
+                                </a>
+                            </li>
+                            <li className="hide-on-med-and-down">
+                                <a className="dropdown-year-trigger" href="#" data-target="year">
+                                    {year}<i className="material-icons right">arrow_drop_down</i>
+                                </a>
+                            </li>
+                            <li className="hide-on-med-and-up">
+                                <a className="dropdown-calendar-trigger-mobile less-padding" href="#" data-target="calendars-mobile">
+                                    Cal<i className="material-icons right">arrow_drop_down</i>
+                                </a>
+                            </li>
+                            <li className="hide-on-med-and-up">
+                                <a className="dropdown-trigger-mobile less-padding" href="#" data-target="months-mobile">
+                                    {month.substr(0,3)}<i className="material-icons right">arrow_drop_down</i>
+                                </a>
+                            </li>
+                            <li className="hide-on-med-and-up">
+                                <a className="dropdown-year-trigger-mobile less-padding" href="#" data-target="year-mobile">
+                                    {mobileYear}<i className="material-icons right">arrow_drop_down</i>
                                 </a>
                             </li>
                         </ul>
@@ -175,9 +281,6 @@ class Nav extends Component {
                     <ul>
                         <li className={ path == "/day" ? 'active' : ''}>
                             <Link to="/day" className="sidenav-close">Day</Link>
-                        </li>
-                        <li className={ path == "/week" ? 'active' : ''}>
-                            <Link to="/week" className="sidenav-close">Week</Link>
                         </li>
                         <li className={ (path == "/" || path == '/month') ? 'active' : ''}>
                             <Link to="/" className="sidenav-close">Month</Link>

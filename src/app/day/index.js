@@ -9,6 +9,7 @@ class Month extends Component {
                 <p>This is the first paragraph</p>
                 <p>This is the second paragraph</p>
                 <p>This is the day Component!</p>
+                <p>{JSON.stringify(this.props)}</p>
             </div>
         );
     }

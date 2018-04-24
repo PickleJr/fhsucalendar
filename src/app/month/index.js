@@ -87,6 +87,9 @@ class Month extends Component {
         theEvents[thisDate.getFullYear()][thisDate.getMonth()] = theEvents[thisDate.getFullYear()][thisDate.getMonth()] || {};
         theEvents[thisDate.getFullYear()][thisDate.getMonth()]
 
+        let year = thisDate.getFullYear();
+        let month = thisDate.getMonth();
+
         while(dayCouter <= lastDayOfMonth) {
             let events = theEvents[thisDate.getFullYear()][thisDate.getMonth()][dayCouter] || [];
 
@@ -94,7 +97,7 @@ class Month extends Component {
 
                 if(weekDayCounter == firstWeekDayOfMonth) {
                     weeklyResults.push(
-                        <Day events={events} key={++keyID}>{dayCouter++}</Day>
+                        <Day events={events} date={{year: year, month: month}} key={++keyID}>{dayCouter++}</Day>
                     );
                 } else {
                     weeklyResults.push(<Day key={++keyID}></Day>);
@@ -102,7 +105,7 @@ class Month extends Component {
 
             } else {
 
-                weeklyResults.push(<Day events={events} key={++keyID}>{dayCouter++}</Day>);
+                weeklyResults.push(<Day events={events} date={{year: year, month: month}} key={++keyID}>{dayCouter++}</Day>);
                 
                 if(dayCouter - 1 == lastDayOfMonth) {
                     while(weekDayCounter != 6) {

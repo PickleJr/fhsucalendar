@@ -14,10 +14,6 @@ const Month = Loadable({
     loader: () => import('./month'),
     loading: Loading
 })
-const Week = Loadable({
-    loader: () => import('./week'),
-    loading: Loading
-})
 const Day = Loadable({
     loader: () => import('./day'),
     loading: Loading
@@ -86,8 +82,6 @@ class App extends Component {
         <Route exact path="/" render={(props) => <Month {...props} calendars={this.state.calendars} />}/>
                         <Route path="/month/:year/:month" render={(props) => <Month {...props} calendars={this.state.calendars} />}/>
                         <Route path="/month" render={(props) => <Month {...props} calendars={this.state.calendars} />}/>
-                        <Route path="/week/:year/:month/:day" component={Week}/>
-                        <Route path="/week" component={Week}/>
                         <Route path="/day/:year/:month/:day" component={Day}/>
                         <Route path="/day" component={Day}/>
                     </Switch>

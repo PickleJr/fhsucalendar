@@ -4,14 +4,15 @@ import { Link } from 'react-router-dom';
 
 class Day extends Component {
     render() {
+        console.log(this.props);
         let indicator = null;
-        if(typeof this.props.events != 'undefined' && this.props.events.length > 0) {
+        if(this.props.events && this.props.events.length > 0) {
             indicator = this.props.events.length;
         }
-        if(indicator) {
+        if(indicator && this.props.date.month && this.props.date.year) {
             return(
                 <div>
-                    <Link to="day/">
+                    <Link to={"day/" + this.props.date.year + "/" + this.props.date.month + "/" + this.props.children}>
                         <span>
                             {this.props.children}
                         </span>
