@@ -27,8 +27,9 @@ class Day extends Component {
     componentWillReceiveProps(nextProps) {
         let curMonth = nextProps.match.params.month || (new Date()).getMonth();
         let curYear = nextProps.match.params.year || (new Date()).getFullYear();
+        let curDay = props.match.params.day || (new Date()).getDate();
         this.setState({
-            date: new Date(curYear, curMonth),
+            date: new Date(curYear, curMonth, curDay),
             ready: false,
             entries: []
         });
@@ -37,6 +38,13 @@ class Day extends Component {
             console.error("There was an error!");
             console.log(error);
         });
+    }
+
+    buildEvents() {
+        let entries = this.state.entries;
+        let year = this.state.date.getFullYear();
+        let month = this.state.date.getMonth();
+        let day = this.state.date.getDate();
     }
 
     async readFeeds(calendars) {
