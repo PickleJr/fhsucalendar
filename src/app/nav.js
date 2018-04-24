@@ -80,6 +80,8 @@ class Nav extends Component {
         let monthNum = month;
         month = months[month];
 
+        let hideDropDowns = (this.props.match.params.mode == "day") ? "hide" : "";
+
         let displayAcademicCalendar = this.findDisplayCalendar("academic");
         let displayDigitalCalendar = this.findDisplayCalendar("digital");
         let displayHomepageCalendar = this.findDisplayCalendar("homepage");
@@ -261,12 +263,12 @@ class Nav extends Component {
                                     Cal<i className="material-icons right">arrow_drop_down</i>
                                 </a>
                             </li>
-                            <li className="hide-on-med-and-up">
+                            <li className={"hide-on-med-and-up " + hideDropDowns}>
                                 <a className="dropdown-trigger-mobile less-padding" href="#" data-target="months-mobile">
                                     {month.substr(0,3)}<i className="material-icons right">arrow_drop_down</i>
                                 </a>
                             </li>
-                            <li className="hide-on-med-and-up">
+                            <li className={"hide-on-med-and-up " + hideDropDowns}>
                                 <a className="dropdown-year-trigger-mobile less-padding" href="#" data-target="year-mobile">
                                     {mobileYear}<i className="material-icons right">arrow_drop_down</i>
                                 </a>

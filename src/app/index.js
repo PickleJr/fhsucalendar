@@ -73,17 +73,18 @@ class App extends Component {
         return(
             <div>
                 <Switch>
-                    <Route path="/:mode(week|day)/:year/:month/:day" render={(props) => <Nav {...props} that={this}/>}/>
+                    <Route path="/:mode(day)/:year/:month/:day" render={(props) => <Nav {...props} that={this}/>}/>
                     <Route path="/:mode(month)/:year/:month" render={(props) => <Nav {...props} that={this}/>}/>
+                    <Route path="/:mode(month|day)" render={(props) => <Nav {...props} that={this}/>}/>
                     <Route render={(props) => <Nav {...props} that={this}/>}/>
                 </Switch>
                 <div className="container">
                     <Switch>
-        <Route exact path="/" render={(props) => <Month {...props} calendars={this.state.calendars} />}/>
+                        <Route exact path="/" render={(props) => <Month {...props} calendars={this.state.calendars} />}/>
                         <Route path="/month/:year/:month" render={(props) => <Month {...props} calendars={this.state.calendars} />}/>
                         <Route path="/month" render={(props) => <Month {...props} calendars={this.state.calendars} />}/>
-                        <Route path="/day/:year/:month/:day" component={Day}/>
-                        <Route path="/day" component={Day}/>
+                        <Route path="/day/:year/:month/:day" render={(props) => <Day {...props} calendars={this.state.calendars} />}/>
+                        <Route path="/day" render={(props) => <Day {...props} calendars={this.state.calendars} />}/>
                     </Switch>
                 </div>
             </div>

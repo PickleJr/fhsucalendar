@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 class Day extends Component {
     render() {
-        console.log(this.props);
         let indicator = null;
         if(this.props.events && this.props.events.length > 0) {
             indicator = this.props.events.length;
