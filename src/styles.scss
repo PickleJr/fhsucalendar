@@ -55,6 +55,14 @@ nav {
 
         &:nth-of-type(1) {
             flex: 0 1 20px;
+
+            & > div {
+                text-align: center;
+
+                span {
+                    padding: 0 !important;
+                }
+            }
         }
 
         &:first-of-type() {
@@ -82,9 +90,10 @@ nav {
             a {
                 width: 100%;
                 height: 100%;
+                padding: 10%;
                 
                 div {
-                    padding-left: 9%;
+                    padding-left: 7%;
                 }
             }
         }
