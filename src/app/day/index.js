@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { hot } from 'react-hot-loader';
+import { Redirect } from 'react-router-dom';
 
 import Loading from '../loading';
 import Event from './event';
@@ -26,7 +27,19 @@ class Day extends Component {
         });
 
         let elem = document.querySelector('.datepicker');
-        let instance = M.Datepicker.init(elem, {});
+        let instance = M.Datepicker.init(elem, {
+            format: "yyyy m d",
+            minDate: new Date(),
+            maxDate: new Date(this.state.date.getFullYear() + 1, 12, 0),
+            i18n: {
+                cancel: '',
+                done: ''
+            },
+            onSelect: date => {
+                instance.close();
+                this.props.history.push('/day/' + date.getFullYear() + "/" + date.getMonth() + "/" + date.getDate());
+            }
+        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -47,7 +60,19 @@ class Day extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         let elem = document.querySelector('.datepicker');
-        let instance = M.Datepicker.init(elem, {});
+        let instance = M.Datepicker.init(elem, {
+            format: "yyyy m d",
+            minDate: new Date(),
+            maxDate: new Date(this.state.date.getFullYear() + 1, 12, 0),
+            i18n: {
+                cancel: '',
+                done: ''
+            },
+            onSelect: date => {
+                instance.close();
+                this.props.history.push('/day/' + date.getFullYear() + "/" + date.getMonth() + "/" + date.getDate());
+            }
+        });
     }
 
     buildEvents() {
@@ -56,16 +81,23 @@ class Day extends Component {
         let month = this.state.date.getMonth();
         let day = this.state.date.getDate();
         let entries = this.state.entries;
-        console.log(entries);
 
         if (entries[year] && entries[year][month] && entries[year][month][day]) {
             entries = entries[year][month][day];
             for (var i = 0; i < entries.length; i++) {
                 returns.push(<Event key={i} event={entries[i]} />)
             }
+            returns.push(
+                <div key="date-picker" className="c-center date-picker">
+                    <a key="date-picker" className="datepicker waves-effect waves-light btn">Choose a different date</a>
+                </div>
+            );
         } else {
             returns.push(
-                <p key="1" className="no-display">No events to display!</p>
+                <div key="no-display" className="c-center date-picker">
+                    <p className="c-center flow-text"> No events to display!</p>
+                    <a className="datepicker waves-effect waves-light btn">Choose a different date</a>
+                </div>
             );
         }
         return returns;
@@ -115,9 +147,6 @@ class Day extends Component {
             return(
                 <div>
                     {this.buildEvents()}
-                    <div className="row v-center">
-                        <a className="datepicker waves-effect waves-light btn">Choose a different date</a>
-                    </div>
                 </div>
             );
         } else {

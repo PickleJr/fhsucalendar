@@ -34,10 +34,6 @@ nav {
     @include center;
 }
 
-.no-display {
-    @include center;
-}
-
 .row .col.s1-7 {
     width: 14.2857143%;
     margin-left: auto;
@@ -107,6 +103,10 @@ nav li a.less-padding {
     cursor: pointer;
 }
 
-.v-center {
+.c-center {
     text-align: center;
+}
+
+.date-picker {
+    margin-bottom: 20px;
 }

@@ -235,10 +235,10 @@ class Nav extends Component {
                             <i className="material-icons">menu</i>
                         </a>
                         <ul className="right hide-on-med-and-down">
-                            <li className={ path == "/day" ? 'active' : ''}>
+                            <li className={ this.props.match.params.mode == "day" ? 'active' : ''}>
                                 <Link to="/day">Day</Link>
                             </li>
-                            <li className={ (path == "/" || path == '/month') ? 'active' : ''}>
+                            <li className={ (path == "/" || this.props.match.params.mode == 'month') ? 'active' : ''}>
                                 <Link to="/">Month</Link>
                             </li>
                         </ul>
@@ -248,27 +248,27 @@ class Nav extends Component {
                                     Calendars<i className="material-icons right">arrow_drop_down</i>
                                 </a>
                             </li>
-                            <li className="hide-on-med-and-down">
+                            <li className={"hide-on-med-and-down " + hideDropDowns}>
                                 <a className="dropdown-trigger" href="#" data-target="months">
                                     {month}<i className="material-icons right">arrow_drop_down</i>
                                 </a>
                             </li>
-                            <li className="hide-on-med-and-down">
+                            <li className={"hide-on-med-and-down " + hideDropDowns}>
                                 <a className="dropdown-year-trigger" href="#" data-target="year">
                                     {year}<i className="material-icons right">arrow_drop_down</i>
                                 </a>
                             </li>
-                            <li className="hide-on-med-and-up">
+                            <li className="hide-on-med-and-up show-on-medium-and-down">
                                 <a className="dropdown-calendar-trigger-mobile less-padding" href="#" data-target="calendars-mobile">
                                     Cal<i className="material-icons right">arrow_drop_down</i>
                                 </a>
                             </li>
-                            <li className={"hide-on-med-and-up " + hideDropDowns}>
+                            <li className={"hide-on-med-and-up show-on-medium-and-down " + hideDropDowns}>
                                 <a className="dropdown-trigger-mobile less-padding" href="#" data-target="months-mobile">
                                     {month.substr(0,3)}<i className="material-icons right">arrow_drop_down</i>
                                 </a>
                             </li>
-                            <li className={"hide-on-med-and-up " + hideDropDowns}>
+                            <li className={"hide-on-med-and-up show-on-medium-and-down " + hideDropDowns}>
                                 <a className="dropdown-year-trigger-mobile less-padding" href="#" data-target="year-mobile">
                                     {mobileYear}<i className="material-icons right">arrow_drop_down</i>
                                 </a>
@@ -281,10 +281,10 @@ class Nav extends Component {
                         <span className="left">Calendar</span>
                     </div>
                     <ul>
-                        <li className={ path == "/day" ? 'active' : ''}>
+                        <li className={ this.props.match.params.mode == "day" ? 'active' : ''}>
                             <Link to="/day" className="sidenav-close">Day</Link>
                         </li>
-                        <li className={ (path == "/" || path == '/month') ? 'active' : ''}>
+                        <li className={ (path == "/" || this.props.match.params.mode == 'month') ? 'active' : ''}>
                             <Link to="/" className="sidenav-close">Month</Link>
                         </li>
                     </ul>
